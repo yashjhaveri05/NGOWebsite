@@ -1,0 +1,45 @@
+{% extends "main/layout.html" %}
+{% block content %}
+<div class="list">
+    <h1 class="text-center">Upcoming Events List</h1>
+    <div class="row">
+        <div class="col-sm-11 m-auto">
+            {% if events %}
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Cause</th>
+                        <th scope="col">Location</th>
+                        <td scope="col">Time</td>
+                        <th scope="col">Volunteers Required</th>
+                        <td scope="col">Duration</td>
+                        <td scope="col">Completed</td>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in events %}
+                    <tr>
+                        <td><a href="{% url 'main:event-detail' event.slug %}" class="text-white"><u>{{  event.title }}</u></a></td>
+                        <td>{{ event.cause }}</td>
+                        <td>{{ event.location }}</td>
+                        <td>{{ event.event_timings }}</td>
+                        <td>{{ event.volunteers_required }}</td>
+                        <td>{{ event.duration }}</td>
+                        <td>{{ event.is_complete }}</td>
+                        <td><a class="btn btn-success" href="{% url 'main:event-update' event.slug %}">Update</a></td>
+                        <td><a class="btn btn-danger" href="{% url 'main:event-delete' event.slug %}">Delete</a></td>
+                    </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

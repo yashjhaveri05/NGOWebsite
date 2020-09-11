@@ -1,6 +1,43 @@
-{% extends "main/layout.html" %} 
+{% extends "main/layout.html" %}
 {% block content %}
-<div class="container">
-    <h1>Hello World!!</h1> 
-</div>
+<div class="home">
+    <div class="container">
+      {% if upcoming_events %}
+      <h1 class="text-center mb-3">Upcoming Events</h1>
+      <div class="row">
+        {% for event in upcoming_events %}
+            <div class="col-sm-4">
+                <div class="card mb-3" style="height: 300px; border-radius: 5px;">
+                    <div class="card-body text-center bg-dark text-light">              
+                      <h4 class="text-center"><a href="{% url 'main:event-detail' event.slug %}">{{ event.title }} </a></h4>
+                      <h4 class="text-center">{{ event.cause }}</h4>
+                      <h5 class="text-center">Location: {{ event.location }}</h5>
+                      <h5 class="text-center">Timings : {{ event.event_timings }}</h5> 
+                      <h6 class="text-center">Volunteers Required : {{ event.volunteers_required }}</h6>   
+                      <a href="{% url 'main:event-detail' event.slug %}" class="btn btn-info">View Details</a>           
+                    </div>
+                </div>
+            </div>            
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% if achievements %}
+      <h1 class="text-center mb-3">Achievements</h1>
+      <div class="row">
+        {% for achievement in achievements %}
+            <div class="col-sm-4">
+              <div class="card mb-3" style="height: fit-content; overflow: auto;">
+                <img src="{{ achievement.image1.url }}" style="height: 250px;">
+                  <div class="card-body text-center text-light bg-dark">             
+                    <h5 class="text-center"><a href="#">{{ achievement.event.title }}</a></h5>
+                    <p class="text-center">{{ achievement.event.cause }}</p>
+                    <h5 class="text-center">Took Place on: {{ achievement.location }} : {{ achievement.event_timings }}</h5>    
+                    <a href="{% url 'main:achievement-detail' achievement.id %}" class="btn btn-info">View Details</a>           
+                  </div>
+              </div>
+            </div>         
+        {% endfor %}
+      {% endif %}
+    </div>
+    <hr>
 {% endblock %}

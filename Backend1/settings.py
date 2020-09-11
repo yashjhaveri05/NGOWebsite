@@ -27,10 +27,108 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+JAZZMIN_SETTINGS = {
+    # title of the window
+    'site_title': 'NGO Admin',
 
+    # Title on the brand, and the login screen (19 chars max)
+    'site_header': 'NGO',
+
+    # Welcome text on the login screen
+    'welcome_sign': 'Welcome to NGO',
+
+    # Copyright on the footer
+    #'copyright': 'NGO Ltd',
+
+    # The model admin to search from the search bar, search bar omitted if excluded
+    'search_model': 'main.User',
+
+    # Field name on user model that contains avatar image
+    'user_avatar': None,
+
+    ############
+    # Top Menu #
+    ############
+
+    # Links to put along the top menu
+    'topmenu_links': [
+
+        # Url that gets reversed (Permissions can be added)
+        {'name': 'Home',  'url': 'admin:index', 'permissions': ['auth.view_user']},
+
+        # model admin to link to (Permissions checked against model)
+        {'model': 'main.User'},
+
+        # App with dropdown menu to all its models pages (Permissions checked against models)
+        {'app': 'main'},
+    ],
+
+    #############
+    # Side Menu #
+    #############
+
+    # Whether to display the side menu
+    'show_sidebar': True,
+
+    # Whether to aut expand the menu
+    'navigation_expanded': True,
+
+    # Hide these apps when generating side menu e.g (auth)
+    'hide_apps': [],
+
+    # Hide these models when generating side menu (e.g auth.user)
+    'hide_models': [],
+
+    # List of apps to base side menu ordering off of (does not need to contain all apps)
+    'order_with_respect_to': ['main'],
+
+    # Custom links to append to app groups, keyed on app name
+    'custom_links': {
+        'polls': [{
+            'name': 'Make Messages', 
+            'url': 'make_messages', 
+            'icon': 'fas fa-comments',
+            'permissions': ['polls.view_poll']
+        }]
+    },
+
+    # Custom icons for side menu apps/models See https://www.fontawesomecheatsheet.com/font-awesome-cheatsheet-5x/
+    # for a list of icon classes
+    'icons': {
+        'auth': 'fas fa-users-cog',
+        'main.user': 'fas fa-user',
+        'auth.Group': 'fas fa-users',
+    },
+    # Icons that are used when one is not manually specified
+    'default_icon_parents': 'fas fa-chevron-circle-right',
+    'default_icon_children': 'fas fa-circle',
+
+    #############
+    # UI Tweaks #
+    #############
+    # Relative paths to custom CSS/JS scripts (must be present in static files)
+    "custom_css": None,
+    "custom_js": None,
+    # Whether to show the UI customizer on the sidebar
+    "show_ui_builder": False,
+
+    ###############
+    # Change view #
+    ###############
+    # Render out the change view as a single form, or in tabs, current options are
+    # - single
+    # - horizontal_tabs (default)
+    # - vertical_tabs
+    # - collapsible
+    # - carousel
+    "changeform_format": "carousel",
+    # override change forms on a per modeladmin basis
+    "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "single",},
+}
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

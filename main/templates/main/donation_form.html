@@ -1,0 +1,42 @@
+{% extends "main/layout.html" %}
+{% block content %}
+<div class="donation_form">
+    <div class="form container mt-5 mb-3">
+        <div class="row">
+          <div class="col-sm-8 m-auto card bg-dark">
+            <h2 class="text-center text-light">Donate:</h2>
+            <form action="{% url 'main:donateFunds' %}" method="POST" class="mb-3 mt-3">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-sm-12 mb-3">
+                  <input type="text" name="pancard" class="form-control" placeholder="Enter Pancard Number">
+                </div>
+                <div class="col-sm-12 mb-3">
+                  <input type="float" name="amount_donated" class="form-control" placeholder="Enter Amount To Be Donated">
+                </div>
+                <div class="col-sm-12 mb-3">
+                    <input type="text" name="bank_name" class="form-control" placeholder="Enter Bank Name">
+                </div>
+                <div class="col-sm-12 mb-3">
+                    <input type="text" name="bank_branch" class="form-control" placeholder="Enter Bank Branch">
+                </div>
+                <div class="col-sm-12 mb-3">
+                    <label for="payment_method" class="text-light">Choose a Payment Method:</label>
+                    <select name="payment_method" id="payment_method">
+                        <option value="BankTransfer">BankTransfer</option>
+                        <option value="PayTM">PayTM</option>
+                        <option value="GooglePay">GooglePay</option>
+                        <option value="CreditCard">CreditCard</option>
+                        <option value="DebitCard">DebitCard</option>
+                    </select>
+                </div>
+                <div class="col-sm-1 m-auto">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>  
+      </div>
+</div>
+{% endblock %}
