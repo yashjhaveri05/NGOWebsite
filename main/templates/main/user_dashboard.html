@@ -1,0 +1,61 @@
+{% extends "main/layout.html" %}
+{% block content %}
+<div class="user_dashboard container">
+    <div class="row">
+        <div class="col-sm-12 m-auto">
+            {% if volunteers %}
+            <h1 class="text-center">Event Volunteered In:</h1>
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Location</th>
+                        <td scope="col">Time</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for volunteer in volunteers %}
+                    <tr>
+                        <td><a href="{% url 'main:event-detail' volunteer.slug %}" class="text-white"><u>{{  volunteer.title }}</u></a></td>
+                        <td>{{ volunteer.location }}</td>
+                        <td>{{ volunteer.event_timings }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-sm-12 m-auto">
+            {% if donations %}
+            <h1 class="text-center">Donations Made:</h1>
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">Donated Amount</th>
+                        <th scope="col">Donated On</th>
+                        <td scope="col">Payment Method</td>
+                        <td scope="col">Bank Name</td>
+                        <td scope="col">Bank Branch</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for donation in donations %}
+                    <tr>
+                        <td>{{  donation.amount_donated }}</td>
+                        <td>{{ donation.donated_on }}</td>
+                        <td>{{ donation.payment_method }}</td>
+                        <td>{{ donation.bank_name }}</td>
+                        <td>{{ donation.bank_branch }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

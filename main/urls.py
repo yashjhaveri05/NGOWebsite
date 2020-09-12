@@ -36,4 +36,6 @@ urlpatterns = [
     path('donate', views.donateFunds, name="donateFunds"),
     path('donations_received/', views.donations_received, name="donations_received"),
 
+    path('volunteering/<slug>/', views.become_volunteer, name="volunteering"),
+    path('user_dashboard/', views.user_dashboard, name="user_dashboard"),
 ]

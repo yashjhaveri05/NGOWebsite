@@ -1,3 +1,4 @@
+{% load get_group %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,18 +25,34 @@
             <ul class="navbar-nav mr-auto">
             </ul>
             <ul class="navbar-nav ml-auto">
-                    <li><a href="/" class="mr-2 text-light">Home</a></li>
-                {% if user.is_authenticated %}
-                        <li>
-                            <form class="logout-link" action="{% url 'main:logout' %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="mr-2">Logout</button>
-                            </form>
-                        </li>
-                {% else %}
-                    <li><a href="{% url 'main:login' %}" class="mr-2 text-light">Login</a></li>
-                    <li><a href="{% url 'main:signup' %}" class="mr-2 text-light">SignUp</a></li>
-                {% endif %}
+                    <li><a href="{% url 'main:home' %}" class="mr-2 text-light">Home</a></li>
+                    {% if user.is_authenticated %}
+                        {% if request.user|has_group:"ngo_admin" %} 
+                            <li><a href="{% url 'main:events_list' %}" class="mr-2 text-light">Events</a></li>
+                            <li><a href="{% url 'main:completed_list' %}" class="mr-2 text-light">Achievements</a></li>
+                            <li><a href="{% url 'main:event-add' %}" class="mr-2 text-light">AddEvent</a></li>
+                            <li><a href="{% url 'main:achievement-add' %}" class="mr-2 text-light">AddAchievement</a></li>
+                            <li><a href="{% url 'main:donations_received' %}" class="mr-2 text-light">Donations</a></li>
+                            <li>
+                                <form class="logout-link" action="{% url 'main:logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="mr-2">Logout</button>
+                                </form>
+                            </li> 
+                        {% else %}
+                            <li><a href="{% url 'main:donation_form' %}" class="mr-2 text-light">Donate</a></li>
+                            <li><a href="{% url 'main:user_dashboard' %}" class="mr-2 text-light">User Dashboard</a></li>
+                            <li>
+                                <form class="logout-link" action="{% url 'main:logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="mr-2">Logout</button>
+                                </form>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        <li><a href="{% url 'main:login' %}" class="mr-2 text-light">Login</a></li>
+                        <li><a href="{% url 'main:signup' %}" class="mr-2 text-light">SignUp</a></li>
+                    {% endif %}
             </ul>
         </div>
     </nav>

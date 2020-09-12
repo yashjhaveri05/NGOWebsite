@@ -16,6 +16,7 @@
                         <th scope="col">Volunteers Required</th>
                         <td scope="col">Duration</td>
                         <td scope="col">Completed</td>
+                        <td scope="col">Volunteers Registered</td>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -31,6 +32,7 @@
                         <td>{{ event.volunteers_required }}</td>
                         <td>{{ event.duration }}</td>
                         <td>{{ event.is_complete }}</td>
+                        <td>{{ volunteerscount }}</td>
                         <td><a class="btn btn-success" href="{% url 'main:event-update' event.slug %}">Update</a></td>
                         <td><a class="btn btn-danger" href="{% url 'main:event-delete' event.slug %}">Delete</a></td>
                     </tr>

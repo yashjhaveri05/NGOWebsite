@@ -16,45 +16,39 @@
                     <h5 class="text-center">{{ object.duration }}</h5>
                     <h5>{{ object.description }}</h5>
                     <hr>
-                    <!--
-                    <div class="form container mt-5">
-                      <div class="row">
-                        <div class="col-sm-8 m-auto card bg-dark">
-                          <h2 class="text-center text-light">Want To Volunteer?</h2>
-                          <form action="#" method="POST" class="mb-3 mt-3">
-                            {% csrf_token %}
-                            <div class="row">
-                              <div class="col-sm-12 mb-3">
-                                <label for="responsibility" class="text-white">Select Preferable Responsibilty:</label>
-                                <select name="responsibility" class="form-control">
-                                  <option value="management">Management</option>
-                                  <option value="task-force">Task Force</option>
-                                  <option value="organisation">Organisation</option>
-                                  <option value="other">Other</option>
-                                </select>
+                    {% if user.is_authenticated %}
+                      <div class="modal_class text-center">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                          Volunteer
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to volunteer for this event??</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
                               </div>
-                              <div class="col-sm-12 mb-3">
-                                <label for="phone_number" class="text-white">Enter Phone Number:</label>
-                                <input type="int" name="phone_number" class="form-control" placeholder="eg: 9898989898">
+                              <div class="modal-body">
+                                  <h6 class="text-muted">*You must be available during the whole time of the event and should have complete focus at your volunteering duties!!</h6>
+                                  <h5>*Once confirmed,we shall call you shortly and provide you with all the details of the event and also the responsibility you will be appointed to!!!Hoping to see you!!!</h5>
                               </div>
-                              <div class="col-sm-12 mb-3">
-                                <label for="address" class="text-white">Enter Full Address:</label>
-                                <textarea name="address" class="form-control" placeholder="Building, Area, Landmark, City, PinCode, State"></textarea>
-                              </div>
-                              <div class="col-sm-1 m-auto">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><a href="{% url 'main:event-detail' object.slug %}">Close</a></button>
+                                <button type="button" class="btn btn-warning"><a href="{% url 'main:volunteering' object.slug %}">Confirm</a></button>
                               </div>
                             </div>
-                          </form>
+                          </div>
                         </div>
-                      </div>  
-                    </div>
-                    -->
+                      </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
       </div>
-      <hr>
     </div>
   </main>
 </div>

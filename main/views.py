@@ -78,8 +78,11 @@ class EventCreateView(LoginRequiredMixin, CreateView):
 @admin_required
 def events_list(request):
     events = Event.objects.filter(created_by=request.user)
+    for event in events:
+        volunteerscount = event.volunteers.all().count()
     context = {
-        'events':events
+        'events':events,
+        'volunteerscount':volunteerscount,
     }
     return render(request, "main/event_list.html", context)  
 
@@ -193,3 +196,24 @@ def donations_received(request):
         'donations' : donations
     }
     return render(request, 'main/donations.html', context)
+
+@login_required
+def become_volunteer(request,slug):
+    user = request.user
+    events=Event.objects.filter(slug=slug)
+    for event in events:
+        event.volunteers.add(user)
+    messages.success(request, "Thankyou for volunteering with us!!We shall shortly update you with the details!!!")
+    return redirect('/')
+
+@login_required
+def user_dashboard(request):
+    donations = Donation.objects.filter(donated_by=request.user)
+    volunteers = Event.objects.filter(volunteers=request.user)
+    context = {
+        'donations' : donations,
+        'volunteers' : volunteers,
+    }
+    return render(request, 'main/user_dashboard.html', context)
+
+
